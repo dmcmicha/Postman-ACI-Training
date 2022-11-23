@@ -1,0 +1,551 @@
+{
+	"info": {
+		"_postman_id": "11100d2e-1e22-42d9-99fe-1519120897bb",
+		"name": "Configure Fabric Policies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9753008"
+	},
+	"item": [
+		{
+			"name": "Login Request",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"aaaUser\":{\n    \"attributes\":{\n      \"name\":\"{{username}}\",\n      \"pwd\":\"{{password}}\"\n                 }\n            }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/aaaLogin.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"aaaLogin.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create VLAN Pool",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvnsVlanInstP\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/vlanns-[Prod-VLANPool]-dynamic\",\n            \"name\": \"Prod-VLANPool\",\n            \"rn\": \"vlanns-[Prod-VLANPool]-dynamic\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"fvnsEncapBlk\": {\n                    \"attributes\": {\n                        \"dn\": \"uni/infra/vlanns-[Prod-VLANPool]-dynamic/from-[vlan-1000]-to-[vlan-1099]\",\n                        \"from\": \"vlan-1000\",\n                        \"to\": \"vlan-1099\",\n                        \"allocMode\": \"dynamic\",\n                        \"rn\": \"from-[vlan-1000]-to-[vlan-1099]\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            },\n            {\n                \"fvnsEncapBlk\": {\n                    \"attributes\": {\n                        \"dn\": \"uni/infra/vlanns-[Prod-VLANPool]-dynamic/from-[vlan-1100]-to-[vlan-1300]\",\n                        \"from\": \"vlan-1100\",\n                        \"to\": \"vlan-1300\",\n                        \"allocMode\": \"static\",\n                        \"rn\": \"from-[vlan-1100]-to-[vlan-1300]\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/vlanns-[Prod-VLANPool]-dynamic.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"vlanns-[Prod-VLANPool]-dynamic.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Physical Domain",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"physDomP\": {\n        \"attributes\": {\n            \"dn\": \"uni/phys-ProdL2\",\n            \"name\": \"ProdL2\",\n            \"rn\": \"phys-ProdL2\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [{\"infraRsVlanNs\":{\"attributes\":{\"annotation\":\"\",\"tDn\":\"uni/infra/vlanns-[Prod-VLANPool]-dynamic\"}}}]}}]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/phys-ProdL2.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"phys-ProdL2.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create AAEP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraInfra\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra\",\n            \"status\": \"modified\"\n        },\n        \"children\": [\n            {\n                \"infraAttEntityP\": {\n                    \"attributes\": {\n                        \"dn\": \"uni/infra/attentp-Prod-AEP\",\n                        \"name\": \"Prod-AEP\",\n                        \"rn\": \"attentp-Prod-AEP\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": [{\"infraRsDomP\":{\"attributes\":{\"annotation\":\"\",\"tDn\":\"uni/phys-ProdL2\"}}}]}}]\n                }\n            },\n            {\n                \"infraFuncP\": {\n                    \"attributes\": {\n                        \"dn\": \"uni/infra/funcprof\",\n                        \"status\": \"modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create CDP-Enable Policy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cdpIfPol\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/cdpIfP-CDP-Enable\",\n            \"name\": \"CDP-Enable\",\n            \"rn\": \"cdpIfP-CDP-Enable\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/cdpIfP-CDP-Enable.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"cdpIfP-CDP-Enable.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create LLDP-Enable Policy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lldpIfPol\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/lldpIfP-LLDP-Enable\",\n            \"name\": \"LLDP-Enable\",\n            \"rn\": \"lldpIfP-LLDP-Enable\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/lldpIfP-LLDP-Enable.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"lldpIfP-LLDP-Enable.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create LACP-Active Policy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lacpLagPol\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/lacplagp-LACP-Active\",\n            \"name\": \"LACP-Active\",\n            \"mode\": \"active\",\n            \"rn\": \"lacplagp-LACP-Active\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/lacplagp-LACP-Active.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"lacplagp-LACP-Active.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Access Interface Policy Group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraAccPortGrp\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/funcprof/accportgrp-Access-PG\",\n            \"name\": \"Access-PG\",\n            \"rn\": \"accportgrp-Access-PG\",\n            \"status\": \"created\"\n        },\n        \"children\": [\n            {\n                \"infraRsCdpIfPol\": {\n                    \"attributes\": {\n                        \"tnCdpIfPolName\": \"CDP-Enable\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            },\n            {\n                \"infraRsAttEntP\": {\n                    \"attributes\": {\n                        \"tDn\": \"uni/infra/attentp-Prod-AEP\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            },\n            {\n                \"infraRsLldpIfPol\": {\n                    \"attributes\": {\n                        \"tnLldpIfPolName\": \"LLDP-Enable\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/funcprof/accportgrp-Access-PG.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"funcprof",
+						"accportgrp-Access-PG.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create VPC Interface Policy Group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraAccBndlGrp\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/funcprof/accbundle-Demo-VPC-PortGroup\",\n            \"lagT\": \"node\",\n            \"name\": \"Demo-VPC-PortGroup\",\n            \"rn\": \"accbundle-Demo-VPC-PortGroup\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"infraRsAttEntP\": {\n                    \"attributes\": {\n                        \"tDn\": \"uni/infra/attentp-Prod-AEP\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            },\n            {\n                \"infraRsCdpIfPol\": {\n                    \"attributes\": {\n                        \"tnCdpIfPolName\": \"CDP-Enable\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            },\n            {\n                \"infraRsLldpIfPol\": {\n                    \"attributes\": {\n                        \"tnLldpIfPolName\": \"LLDP-Enable\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            },\n            {\n                \"infraRsLacpPol\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"tnLacpLagPolName\": \"LACP-Active\"\n                    }\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/funcprof/accbundle-Demo-VPC-PortGroup.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"funcprof",
+						"accbundle-Demo-VPC-PortGroup.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create IntProf101",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraAccPortP\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/accportprof-101-IntProf\",\n            \"name\": \"101-IntProf\",\n            \"rn\": \"accportprof-101-IntProf\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"infraHPortS\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"name\": \"eth1-1\",\n                        \"nameAlias\": \"\",\n                        \"ownerKey\": \"\",\n                        \"ownerTag\": \"\",\n                        \"type\": \"range\"\n                    },\n                    \"children\": [\n                        {\n                            \"infraRsAccBaseGrp\": {\n                                \"attributes\": {\n                                    \"annotation\": \"\",\n                                    \"fexId\": \"101\",\n                                    \"tDn\": \"uni/infra/funcprof/accportgrp-Access-PG\"\n                                }\n                            }\n                        },\n                        {\n                            \"infraPortBlk\": {\n                                \"attributes\": {\n                                    \"annotation\": \"\",\n                                    \"descr\": \"\",\n                                    \"fromCard\": \"1\",\n                                    \"fromPort\": \"1\",\n                                    \"name\": \"block2\",\n                                    \"nameAlias\": \"\",\n                                    \"toCard\": \"1\",\n                                    \"toPort\": \"1\"\n                                }\n                            }\n                        }\n                    ]\n                }\n            }\n        ]\n    }\n}\n]\n}\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/accportprof-101-IntProf.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"accportprof-101-IntProf.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create IntProf102",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraAccPortP\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/accportprof-102-IntProf\",\n            \"name\": \"102-IntProf\",\n            \"rn\": \"accportprof-102-IntProf\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"infraHPortS\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"name\": \"eth1-1\",\n                        \"nameAlias\": \"\",\n                        \"ownerKey\": \"\",\n                        \"ownerTag\": \"\",\n                        \"type\": \"range\"\n                    },\n                    \"children\": [\n                        {\n                            \"infraRsAccBaseGrp\": {\n                                \"attributes\": {\n                                    \"annotation\": \"\",\n                                    \"fexId\": \"101\",\n                                    \"tDn\": \"uni/infra/funcprof/accportgrp-Access-PG\"\n                                }\n                            }\n                        },\n                        {\n                            \"infraPortBlk\": {\n                                \"attributes\": {\n                                    \"annotation\": \"\",\n                                    \"descr\": \"\",\n                                    \"fromCard\": \"1\",\n                                    \"fromPort\": \"1\",\n                                    \"name\": \"block2\",\n                                    \"nameAlias\": \"\",\n                                    \"toCard\": \"1\",\n                                    \"toPort\": \"1\"\n                                }\n                            }\n                        }\n                    ]\n                }\n            }\n        ]\n    }\n}\n]\n}\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/accportprof-102-IntProf.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"accportprof-102-IntProf.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create IntProf101_102-VPC",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraAccPortP\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/accportprof-101_102-IntProf\",\n            \"name\": \"101_102-IntProf\",\n            \"rn\": \"accportprof-101_102-IntProf\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"infraHPortS\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"name\": \"eth1-2\",\n                        \"nameAlias\": \"\",\n                        \"ownerKey\": \"\",\n                        \"ownerTag\": \"\",\n                        \"type\": \"range\"\n                    },\n                    \"children\": [\n                        {\n                            \"infraRsAccBaseGrp\": {\n                                \"attributes\": {\n                                    \"annotation\": \"\",\n                                    \"fexId\": \"101\",\n                                    \"tDn\": \"uni/infra/funcprof/accbundle-Demo-VPC-PortGroup\"\n                                }\n                            }\n                        },\n                        {\n                            \"infraPortBlk\": {\n                                \"attributes\": {\n                                    \"annotation\": \"\",\n                                    \"descr\": \"\",\n                                    \"fromCard\": \"1\",\n                                    \"fromPort\": \"2\",\n                                    \"name\": \"block2\",\n                                    \"nameAlias\": \"\",\n                                    \"toCard\": \"1\",\n                                    \"toPort\": \"2\"\n                                }\n                            }\n                        }\n                    ]\n                }\n            }\n        ]\n    }\n}\n]\n}\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/accportprof-101_102-IntProf.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"accportprof-101_102-IntProf.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create SwProf101",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraNodeP\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/nprof-101-SwProf\",\n            \"name\": \"101-SwProf\",\n            \"rn\": \"nprof-101-SwProf\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"infraLeafS\": {\n                    \"attributes\": {\n                        \"dn\": \"uni/infra/nprof-101-SwProf/leaves-101-typ-range\",\n                        \"type\": \"range\",\n                        \"name\": \"101\",\n                        \"rn\": \"leaves-101-typ-range\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": [\n                        {\n                            \"infraNodeBlk\": {\n                                \"attributes\": {\n                                    \"dn\": \"uni/infra/nprof-101-SwProf/leaves-101-typ-range/nodeblk-ab9a518f89911f15\",\n                                    \"from_\": \"101\",\n                                    \"to_\": \"101\",\n                                    \"name\": \"ab9a518f89911f15\",\n                                    \"rn\": \"nodeblk-ab9a518f89911f15\",\n                                    \"status\": \"created,modified\"\n                                },\n                                \"children\": []\n                            }\n                        }\n                    ]\n                }\n            },\n            {\n                \"infraRsAccPortP\": {\n                    \"attributes\": {\n                        \"tDn\": \"uni/infra/accportprof-101-IntProf\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/nprof-101-SwProf.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"nprof-101-SwProf.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create SwProf102",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraNodeP\": {\n        \"attributes\": {\n            \"dn\": \"uni/infra/nprof-102-SwProf\",\n            \"name\": \"102-SwProf\",\n            \"rn\": \"nprof-102-SwProf\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"infraLeafS\": {\n                    \"attributes\": {\n                        \"dn\": \"uni/infra/nprof-102-SwProf/leaves-102-typ-range\",\n                        \"type\": \"range\",\n                        \"name\": \"102\",\n                        \"rn\": \"leaves-102-typ-range\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": [\n                        {\n                            \"infraNodeBlk\": {\n                                \"attributes\": {\n                                    \"dn\": \"uni/infra/nprof-102-SwProf/leaves-102-typ-range/nodeblk-5214e209069b7654\",\n                                    \"from_\": \"102\",\n                                    \"to_\": \"102\",\n                                    \"name\": \"5214e209069b7654\",\n                                    \"rn\": \"nodeblk-5214e209069b7654\",\n                                    \"status\": \"created,modified\"\n                                },\n                                \"children\": []\n                            }\n                        }\n                    ]\n                }\n            },\n            {\n                \"infraRsAccPortP\": {\n                    \"attributes\": {\n                        \"tDn\": \"uni/infra/accportprof-102-IntProf\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/nprof-102-SwProf.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"nprof-102-SwProf.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create SwProf101_102-VPC",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"infraNodeP\": {\n        \"attributes\": {\n            \"annotation\": \"\",\n            \"descr\": \"\",\n            \"dn\": \"uni/infra/nprof-101_102-SwProf\",\n            \"name\": \"101_102-SwProf\",\n            \"nameAlias\": \"\",\n            \"ownerKey\": \"\",\n            \"ownerTag\": \"\"\n        },\n        \"children\": [\n            {\n                \"infraRsAccPortP\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"tDn\": \"uni/infra/accportprof-101_102-IntProf\"\n                    }\n                }\n            },\n            {\n                \"infraLeafS\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"name\": \"101_102\",\n                        \"nameAlias\": \"\",\n                        \"ownerKey\": \"\",\n                        \"ownerTag\": \"\",\n                        \"type\": \"range\"\n                    },\n                    \"children\": [\n                        {\n                            \"infraNodeBlk\": {\n                                \"attributes\": {\n                                    \"annotation\": \"\",\n                                    \"descr\": \"\",\n                                    \"from_\": \"101\",\n                                    \"name\": \"dd65c5b18295e3a4\",\n                                    \"nameAlias\": \"\",\n                                    \"to_\": \"102\"\n                                }\n                            }\n                        }\n                    ]\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/infra/nprof-101_102-SwProf.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"infra",
+						"nprof-101_102-SwProf.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create VPC Protection Group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fabricProtPol\": {\r\n        \"attributes\": {\r\n            \"annotation\": \"\",\r\n            \"descr\": \"\",\r\n            \"dn\": \"uni/fabric/protpol\",\r\n            \"name\": \"default\",\r\n            \"nameAlias\": \"\",\r\n            \"ownerKey\": \"\",\r\n            \"ownerTag\": \"\",\r\n            \"pairT\": \"explicit\"\r\n        },\r\n        \"children\": [\r\n            {\r\n                \"fabricExplicitGEp\": {\r\n                    \"attributes\": {\r\n                        \"annotation\": \"\",\r\n                        \"id\": \"101\",\r\n                        \"name\": \"101_102\"\r\n                    },\r\n                    \"children\": [\r\n                        {\r\n                            \"fabricRsVpcInstPol\": {\r\n                                \"attributes\": {\r\n                                    \"annotation\": \"\",\r\n                                    \"tnVpcInstPolName\": \"\"\r\n                                }\r\n                            }\r\n                        },\r\n                        {\r\n                            \"fabricNodePEp\": {\r\n                                \"attributes\": {\r\n                                    \"annotation\": \"\",\r\n                                    \"descr\": \"\",\r\n                                    \"id\": \"102\",\r\n                                    \"name\": \"\",\r\n                                    \"nameAlias\": \"\",\r\n                                    \"podId\": \"1\"\r\n                                }\r\n                            }\r\n                        },\r\n                        {\r\n                            \"fabricNodePEp\": {\r\n                                \"attributes\": {\r\n                                    \"annotation\": \"\",\r\n                                    \"descr\": \"\",\r\n                                    \"id\": \"101\",\r\n                                    \"name\": \"\",\r\n                                    \"nameAlias\": \"\",\r\n                                    \"podId\": \"1\"\r\n                                }\r\n                            }\r\n                        }\r\n                    ]\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/fabric/protpol.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"fabric",
+						"protpol.json"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
