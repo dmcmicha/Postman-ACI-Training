@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "95be4c2e-085e-4860-9e12-994e9dde2abd",
+		"name": "Iterate Static Paths",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"aaaUser\":{\n    \"attributes\":{\n      \"name\":\"{{username}}\",\n      \"pwd\":\"{{password}}\"\n    }\n  }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/aaaLogin.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"aaaLogin.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Iterate Static Path Binding across EPGs",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {},\n        \"children\": [\n            {\n                \"fvRsPathAtt\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"encap\": \"vlan-{{vlan}}\",\n                        \"instrImedcy\": \"lazy\",\n                        \"mode\": \"regular\",\n                        \"primaryEncap\": \"unknown\",\n                        \"tDn\": \"topology/pod-1/protpaths-101-102/pathep-[Demo-VPC-PortGroup]\"\n                    }\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{vlan}}_epg.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-{{tenant}}",
+						"ap-{{ap}}",
+						"epg-vlan{{vlan}}_epg.json"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "823ffac0-b7dd-4a32-bae1-e422f915c445",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "cadd01cf-c92b-4a52-97b3-4ac10f368bd5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

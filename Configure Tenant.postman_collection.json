@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "5ae4a985-b20e-4fa5-8006-1437250138b0",
+		"_postman_id": "35a105b0-ddc2-41da-9100-cabddcd716ba",
 		"name": "Configure Tenant",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "9753008"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -185,10 +184,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-{{tenant}}/ap-AP_DEMO1/epg-{{epg1}}\",\n            \"name\": \"{{epg1}}\",\n            \"rn\": \"epg-{{epg1}}\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"fvRsBd\": {\n                    \"attributes\": {\n                        \"tnFvBDName\": \"{{bd}}\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-{{tenant}}/ap-AP_DEMO1/epg-vlan{{epg1}}_epg\",\n            \"name\": \"vlan{{epg1}}_epg\",\n            \"rn\": \"epg-vlan{{epg1}}_epg\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"fvRsBd\": {\n                    \"attributes\": {\n                        \"tnFvBDName\": \"{{bd}}\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
 				},
 				"url": {
-					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-{{epg1}}.json",
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg1}}_epg.json",
 					"protocol": "https",
 					"host": [
 						"{{apic}}"
@@ -200,7 +199,7 @@
 						"uni",
 						"tn-{{tenant}}",
 						"ap-{{ap}}",
-						"epg-{{epg1}}.json"
+						"epg-vlan{{epg1}}_epg.json"
 					]
 				}
 			},
@@ -220,10 +219,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-{{tenant}}/ap-AP_DEMO1/epg-{{epg2}}\",\n            \"name\": \"{{epg2}}\",\n            \"rn\": \"epg-{{epg2}}\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"fvRsBd\": {\n                    \"attributes\": {\n                        \"tnFvBDName\": \"{{bd}}\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-{{tenant}}/ap-AP_DEMO1/epg-vlan{{epg2}}_epg\",\n            \"name\": \"vlan{{epg2}}_epg\",\n            \"rn\": \"epg-vlan{{epg2}}_epg\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"fvRsBd\": {\n                    \"attributes\": {\n                        \"tnFvBDName\": \"{{bd}}\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
 				},
 				"url": {
-					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-{{epg2}}.json",
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg2}}_epg.json",
 					"protocol": "https",
 					"host": [
 						"{{apic}}"
@@ -235,7 +234,112 @@
 						"uni",
 						"tn-{{tenant}}",
 						"ap-{{ap}}",
-						"epg-{{epg2}}.json"
+						"epg-vlan{{epg2}}_epg.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create epg3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-{{tenant}}/ap-AP_DEMO1/epg-vlan{{epg3}}_epg\",\n            \"name\": \"vlan{{epg3}}_epg\",\n            \"rn\": \"epg-vlan{{epg3}}_epg\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"fvRsBd\": {\n                    \"attributes\": {\n                        \"tnFvBDName\": \"{{bd}}\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg3}}_epg.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-{{tenant}}",
+						"ap-{{ap}}",
+						"epg-vlan{{epg3}}_epg.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create epg4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-{{tenant}}/ap-AP_DEMO1/epg-vlan{{epg4}}_epg\",\n            \"name\": \"vlan{{epg4}}_epg\",\n            \"rn\": \"epg-vlan{{epg4}}_epg\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"fvRsBd\": {\n                    \"attributes\": {\n                        \"tnFvBDName\": \"{{bd}}\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg4}}_epg.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-{{tenant}}",
+						"ap-{{ap}}",
+						"epg-vlan{{epg4}}_epg.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create epg5",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-{{tenant}}/ap-AP_DEMO1/epg-vlan{{epg5}}_epg\",\n            \"name\": \"vlan{{epg5}}_epg\",\n            \"rn\": \"epg-vlan{{epg5}}_epg\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": [\n            {\n                \"fvRsBd\": {\n                    \"attributes\": {\n                        \"tnFvBDName\": \"{{bd}}\",\n                        \"status\": \"created,modified\"\n                    },\n                    \"children\": []\n                }\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg5}}_epg.json",
+					"protocol": "https",
+					"host": [
+						"{{apic}}"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-{{tenant}}",
+						"ap-{{ap}}",
+						"epg-vlan{{epg5}}_epg.json"
 					]
 				}
 			},
@@ -347,13 +451,20 @@
 			"name": "Consume Web Contract under epg1",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fvRsCons\":{\r\n        \"attributes\":{\r\n            \"annotation\":\"\",\r\n            \"prio\":\"unspecified\",\r\n            \"tnVzBrCPName\":\"default\"\r\n            \"status\": \"created,modified\"\r\n            }\r\n    }\r\n}"
+					"raw": "{\n    \"fvRsCons\": {\n        \"attributes\": {\n            \"annotation\": \"\",\n            \"prio\": \"unspecified\",\n            \"tnVzBrCPName\": \"WEB\",\n            \"status\": \"created,modified\"\n        }\n    }\n}"
 				},
 				"url": {
-					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-{{epg1}}.json",
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg1}}_epg.json",
 					"protocol": "https",
 					"host": [
 						"{{apic}}"
@@ -365,7 +476,7 @@
 						"uni",
 						"tn-{{tenant}}",
 						"ap-{{ap}}",
-						"epg-{{epg1}}.json"
+						"epg-vlan{{epg1}}_epg.json"
 					]
 				}
 			},
@@ -378,10 +489,10 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fvRsProv\":{\r\n        \"attributes\":{\r\n            \"annotation\":\"\",\r\n            \"prio\":\"unspecified\",\r\n            \"tnVzBrCPName\":\"default\"\r\n            \"status\": \"created,modified\"\r\n            }\r\n    }\r\n}"
+					"raw": "{\r\n    \"fvRsProv\":{\r\n        \"attributes\":{\r\n            \"annotation\":\"\",\r\n            \"prio\":\"unspecified\",\r\n            \"tnVzBrCPName\":\"WEB\"\r\n            \"status\": \"created,modified\"\r\n            }\r\n    }\r\n}"
 				},
 				"url": {
-					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-{{epg2}}.json",
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg2}}_epg.json",
 					"protocol": "https",
 					"host": [
 						"{{apic}}"
@@ -393,7 +504,7 @@
 						"uni",
 						"tn-{{tenant}}",
 						"ap-{{ap}}",
-						"epg-{{epg2}}.json"
+						"epg-vlan{{epg2}}_epg.json"
 					]
 				}
 			},
@@ -406,15 +517,10 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fvRsDomAtt\":{\r\n        \"attributes\":{\r\n            \"tDn\":\"uni/phys-ProdL2\",\r\n            \"status\": \"created,modified\"\r\n            }\r\n        }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\r\n    \"fvRsDomAtt\":{\r\n        \"attributes\":{\r\n            \"tDn\":\"uni/phys-ProdL2\",\r\n            \"status\": \"created,modified\"\r\n            }\r\n        }\r\n}"
 				},
 				"url": {
-					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-{{epg1}}.json",
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg1}}_epg.json",
 					"protocol": "https",
 					"host": [
 						"{{apic}}"
@@ -426,7 +532,7 @@
 						"uni",
 						"tn-{{tenant}}",
 						"ap-{{ap}}",
-						"epg-{{epg1}}.json"
+						"epg-vlan{{epg1}}_epg.json"
 					]
 				}
 			},
@@ -439,15 +545,10 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fvRsDomAtt\":{\r\n        \"attributes\":{\r\n            \"tDn\":\"uni/phys-ProdL2\",\r\n            \"status\": \"created,modified\"\r\n            }\r\n        }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\r\n    \"fvRsDomAtt\":{\r\n        \"attributes\":{\r\n            \"tDn\":\"uni/phys-ProdL2\",\r\n            \"status\": \"created,modified\"\r\n            }\r\n        }\r\n}"
 				},
 				"url": {
-					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-{{epg2}}.json",
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg2}}_epg.json",
 					"protocol": "https",
 					"host": [
 						"{{apic}}"
@@ -459,7 +560,7 @@
 						"uni",
 						"tn-{{tenant}}",
 						"ap-{{ap}}",
-						"epg-{{epg2}}.json"
+						"epg-vlan{{epg2}}_epg.json"
 					]
 				}
 			},
@@ -482,7 +583,7 @@
 					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {},\n        \"children\": [\n            {\n                \"fvRsPathAtt\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"encap\": \"vlan-1200\",\n                        \"instrImedcy\": \"lazy\",\n                        \"mode\": \"regular\",\n                        \"primaryEncap\": \"unknown\",\n                        \"tDn\": \"topology/pod-1/protpaths-101-102/pathep-[Demo-VPC-PortGroup]\"\n                    }\n                }\n            },\n            {\n                \"fvRsPathAtt\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"encap\": \"vlan-1200\",\n                        \"instrImedcy\": \"lazy\",\n                        \"mode\": \"regular\",\n                        \"primaryEncap\": \"unknown\",\n                        \"tDn\": \"topology/pod-1/paths-101/pathep-[eth1/1]\"\n                    }\n                }\n            }\n        ]\n    }\n}"
 				},
 				"url": {
-					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-{{epg1}}.json",
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg1}}_epg.json",
 					"protocol": "https",
 					"host": [
 						"{{apic}}"
@@ -494,7 +595,7 @@
 						"uni",
 						"tn-{{tenant}}",
 						"ap-{{ap}}",
-						"epg-{{epg1}}.json"
+						"epg-vlan{{epg1}}_epg.json"
 					]
 				}
 			},
@@ -517,7 +618,7 @@
 					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {},\n        \"children\": [\n            {\n                \"fvRsPathAtt\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"encap\": \"vlan-1201\",\n                        \"instrImedcy\": \"lazy\",\n                        \"mode\": \"regular\",\n                        \"primaryEncap\": \"unknown\",\n                        \"tDn\": \"topology/pod-1/protpaths-101-102/pathep-[Demo-VPC-PortGroup]\"\n                    }\n                }\n            },\n            {\n                \"fvRsPathAtt\": {\n                    \"attributes\": {\n                        \"annotation\": \"\",\n                        \"descr\": \"\",\n                        \"encap\": \"vlan-1201\",\n                        \"instrImedcy\": \"lazy\",\n                        \"mode\": \"regular\",\n                        \"primaryEncap\": \"unknown\",\n                        \"tDn\": \"topology/pod-1/paths-101/pathep-[eth1/1]\"\n                    }\n                }\n            }\n        ]\n    }\n}"
 				},
 				"url": {
-					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-{{epg2}}.json",
+					"raw": "https://{{apic}}/api/node/mo/uni/tn-{{tenant}}/ap-{{ap}}/epg-vlan{{epg2}}_epg.json",
 					"protocol": "https",
 					"host": [
 						"{{apic}}"
@@ -529,7 +630,7 @@
 						"uni",
 						"tn-{{tenant}}",
 						"ap-{{ap}}",
-						"epg-{{epg2}}.json"
+						"epg-vlan{{epg2}}_epg.json"
 					]
 				}
 			},
